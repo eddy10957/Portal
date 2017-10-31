@@ -2,22 +2,11 @@
 <script src="../js/toolbox/CRStoolbox.js"></script>
 <script src="../js/toolbox/CRSinterface.js"></script>
 
-<script>
-    window.onload = function(){
-        //hide
-        $("#numtochar").toggle();
-        $("#textreverse").toggle();
-        $("#asciiConversion").toggle();
-        $("#textanalysis").toggle();
-        $("#wordvalue").toggle();
-        $("#cesarcipher").toggle();
-        $("#baconcipher").toggle();
-
-
-        //show
-        //$("#textreverse").toggle();
+<style>
+    .tool{
+        display: none;
     }
-</script>
+</style>
 
 
 <!-- Navigation -->
@@ -25,18 +14,18 @@
   <div class="bodyHeader"><h1><b> Funzioni di Testo </b> </h1></div>
   <div class="bodySection"><table width="750px">
         <tr>
-            <td width"25px"><a href="#" onclick='$("#numtochar").toggle();'> Da numeri a lettere</a></td>
-            <td width"25px"><a href="#" onclick='$("#textreverse").toggle();'> Testo al contrario </a></td>
-            <td width"25px"><a href="#" onclick='$("#asciiConversion").toggle();'> Conversione ASCII  </a></td>
-            <td width"25px"><a href="#" onclick='$("#textanalysis").toggle();'> Analizzatore di testo </a></td>
-            <td width"25px"><a href="#" onclick='$("#wordvalue").toggle();'> Valore delle parole </a></td>
+            <td width"25px"><a href="#" onclick='$(".tool").hide(); $("#numtochar").show();'> Da numeri a lettere</a></td>
+            <td width"25px"><a href="#" onclick='$(".tool").hide(); $("#textreverse").show();'> Testo al contrario </a></td>
+            <td width"25px"><a href="#" onclick='$(".tool").hide(); $("#asciiConversion").show();'> Conversione ASCII  </a></td>
+            <td width"25px"><a href="#" onclick='$(".tool").hide(); $("#textanalysis").show();'> Analizzatore di testo </a></td>
+            <td width"25px"><a href="#" onclick='$(".tool").hide(); $("#wordvalue").show();'> Valore delle parole </a></td>
         </tr>
       </table>
     <div class="bodyHeader"><h1><b> Decriptazione e Cifrari </b></h1></div>
     <div class="bodySection"><table width="750px">
         <tr>
-          <td width"25px"><a href="#" onclick='$("#cesarcipher").toggle()';> Cifrario di Cesare </a> </td>
-          <td width"25px"><a href="#" onclick='$("#baconcipher").toggle()';> Cifrario di Bacon </a> </td>
+          <td width"25px"><a href="#" onclick='$(".tool").hide(); $("#cesarcipher").show()';> Cifrario di Cesare </a> </td>
+          <td width"25px"><a href="#" onclick='$(".tool").hide(); $("#baconcipher").show()';> Cifrario di Bacon </a> </td>
         </tr>
     </table>
 </div>
@@ -44,7 +33,7 @@
 <!-- Toolbox -->
 <div id="toolbox">
 
-    <div id="numtochar">
+    <div id="numtochar" class="tool">
       <form>
       <table>
         <h2>Numbers to letters</h2>
@@ -71,7 +60,7 @@
       </form>
       </div>
     </div>
-    <div id="textreverse">
+    <div id="textreverse" class="tool">
         <h2>Text reverse</h2>
         <form>
         <input id="textReverseText" type="text" oninput="textAction();"/>
@@ -119,9 +108,9 @@
           <tr><td colspan="2" align="left" style="padding-left:25px; padding-right:25px;"><div id="textReverseDiv"></div></td></tr>
         </table>
         </form>
+        </div>
 
-      </div>
-    <div id="asciiConversion">
+    <div id="asciiConversion" class="tool">
       <h2> Conversione ASCII </h2>
       <form>
           <table width="90%" style="text-align:left; border: 2px #000000 solid;">
@@ -152,7 +141,8 @@
               </table>
             </form>
           </div>
-    <div id="textanalysis">
+
+    <div id="textanalysis" class="tool">
       <h2> Analizzatore testo </h2>
       <h4>Questo è un tool per un'analisi veloce del testo. Questo tool determina: <i>Numero di parole</i>, <i>Numero di caratteri</i> , <i>numero di caratteri senza spazio</i> ,<i>analisi di frequenza</i> .<br>Inserisci il testo di analizzare.</h4>
       <form>
@@ -163,7 +153,8 @@
         <tr><td align="left" style="padding-left:25px;"><input name="Reset fields" value="Reset fields" type="button" onclick="resetFields(this.form);"></td></tr>
         <tr><td align="left" style="padding-left:25px; padding-right:25px;"><div id="textAnalysisDiv"></div></td></tr>
       </table></form></div>
-    <div id="wordvalue">
+
+    <div id="wordvalue" class="tool">
       <h2> Valore delle parole </h2>
       <h4>Enter the character assignment and the text in the text field below and the value (digital root) of the text will be calculated. It is possible to take also numbers in the text into account or to leave them out and to hide the entire calculation and only show the final result. When the final option is checked, additionally the word values of all words will be counted separately (separated by a space or a new line).</h4>
       <table width="90%" style="text-align:left; border: 2px #000000 solid;">
@@ -193,7 +184,8 @@
       <tr><td align="left" style="padding-left:25px; padding-right:25px;"><div id="wordValueDiv">
       </td></tr>
       </table></form></div>
-    <div id="cesarcipher">
+
+    <div id="cesarcipher" class="tool">
       <table width="90%" style="text-align:left; border: 2px #000000 solid;">
         <tr><td align="left" style="padding-left:25px;">Alphabet: <select id="caesarCipherAlphabet" onChange="caesarCipher(1)">
         <option value="R5">Numbers only (ROT5)</option>
@@ -243,7 +235,8 @@
       </table></form>
       <h4>È un cifrario a sostituzione monoalfabetica in cui ogni lettera del testo in chiaro è sostituita nel testo cifrato dalla lettera che si trova un certo numero di posizioni dopo nell'alfabeto. Questi tipi di cifrari sono detti anche cifrari a sostituzione o cifrari a scorrimento a causa del loro modo di operare: la sostituzione avviene lettera per lettera, scorrendo il testo dall'inizio alla fine.</h4>
     </div>
-    <div id="baconcipher">
+
+    <div id="baconcipher" class="tool">
        <h4><b>Cifrario di Bacone</b></h4>
       Scegliere decifrare o cifrare, scegliere alfabeto. La versione base non distingue  la U e la I dalla J e V .(Si può scegliere una versione di alfabeto con corrispondenza univoche).
         <form>
