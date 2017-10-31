@@ -465,7 +465,7 @@ function setCharValues_numtolett(){
           charValues[i]=validChars[i];
       }
   }
-  calculateNumbersToLetters();
+  return calculateNumbersToLetters();
 }
 function setCharValues_wordsvalue(){
         var dropDown = document.getElementById("wordValueMethod");
