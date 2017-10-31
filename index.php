@@ -19,7 +19,7 @@
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="index.html"><p style="float: left; font-size">Minerva</p><p style="float: left; font-size:50%;">1.0</p></a>
+    <a class="navbar-brand" href="index.php?action=home"><p style="float: left; font-size">Minerva</p><p style="float: left; font-size:50%;">1.0</p></a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -32,7 +32,7 @@
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-          <a class="nav-link" href="charts.html">
+          <a class="nav-link" href="index.php?action=toolbox">
             <i class="fa fa-fw fa-wrench"></i>
             <span class="nav-link-text">Toolbox</span>
           </a>
@@ -80,19 +80,26 @@
     </div>
   </nav>
   <div class="content-wrapper">
-      <div class="container-fluid">
+      <div class="container-fluid"  style="padding: 20px;">
       <!-- Work Area -->
       <?php
         if(isset($_GET["action"])){
             $action = $_GET["action"];
             switch($action){
-                case "filtro":
-                    require_once("modules/module_filtro.php");
-                    break;
+
                 case "":
                 case "home":
                     echo "<p><h1>Home</h1></p>";
                     break;
+
+                case "toolbox":
+                    require_once("modules/module_toolbox.php");
+                    break;
+
+                case "filtro":
+                    require_once("modules/module_filtro.php");
+                    break;
+
 
                 default:
                     echo "action: " . $action;
@@ -108,7 +115,7 @@
     <footer class="sticky-footer">
       <div class="container">
         <div class="text-center">
-          <small>Copyright © Your Website 2017</small>
+          <small>Copyright © Corsari Neri 2017</small>
         </div>
       </div>
     </footer>
@@ -117,23 +124,7 @@
       <i class="fa fa-angle-up"></i>
     </a>
     <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/popper/popper.min.js"></script>
