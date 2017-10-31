@@ -8,7 +8,11 @@
     }
 </style>
 
-
+<div class="card mb-3">
+   <div class="card-header">
+      <i class="fa fa-wrench"></i> Toolbox
+   </div>
+   <div class="card-body">
 <!-- Navigation -->
 <div id="navigation">
   <div class="bodyHeader"><h1><b> Funzioni di Testo </b> </h1></div>
@@ -258,4 +262,6 @@
         </table></form></div>
       </div>
 
+</div>
+</div>
 </div>
