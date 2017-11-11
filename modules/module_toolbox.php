@@ -62,7 +62,7 @@
                       <div class="row">
                           <div class="col-sm-6">
                               <textarea id="input01-cesare" style="resize: none;" rows="5" cols="80"></textarea><br><br>
-                              <button id="button-cesare">Converti</button><br><br>
+                              <button id="button-cesare" onclick="CRSinterface_cesarcipher()">Converti</button><br><br>
                               <textarea id="output-cesare" style="resize: none;" rows="5" cols="80"></textarea>
                           </div>
                           <div class="col-sm-6">
