@@ -57,13 +57,24 @@
                <!-- Cifrario Cesare -->
                <!-- Tool-Start -->
                <div id="tool-cesare" class="card mb-3 tool">
-                   <div class="card-header">Cifrario Cesare</div>
-                   <div class="card-body">
-                       <textarea id="input-cesare" style="resize: none;" rows="5" cols="80"></textarea><br><br>
-                       <button id="button-cesare">Converti</button><br><br>
-                       <textarea id="output-cesare" style="resize: none;" rows="5" cols="80"></textarea>
-                   </div>
-               </div>
+                  <div class="card-header">Cifrario Cesare</div>
+                  <div class="card-body">
+                      <div class="row">
+                          <div class="col-sm-6">
+                              <textarea id="input01-cesare" style="resize: none;" rows="5" cols="80"></textarea><br><br>
+                              <button id="button-cesare">Converti</button><br><br>
+                              <textarea id="output-cesare" style="resize: none;" rows="5" cols="80"></textarea>
+                          </div>
+                          <div class="col-sm-6">
+                              Scostamento <input id="input02-cesare" style="width: 50px; text-indent: 10px;" type="number" /><br>
+                              Alfabeto    <select id="input03-cesare">
+                                               <option value="eng">ENG</option>
+                                               <option value="ita">ITA</option>
+                                          </select>
+
+                          </div>
+                      </div>
+                  </div>
                <!-- Tool-End -->
            </div>
        </div>
