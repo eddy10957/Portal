@@ -1,7 +1,9 @@
+<ol class="breadcrumb">
+            <h2>Filtro interattivo</h2>
+</ol>
+
 <div class="card mb-3">
-   <div class="card-header">
-      <i class="fa fa-table"></i> Filtro interattivo
-   </div>
+   <div class="card-header"></div>
    <div class="card-body">
       <div class="table-responsive">
          <div id="dataTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
