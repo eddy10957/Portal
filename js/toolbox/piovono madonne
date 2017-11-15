@@ -1,0 +1,503 @@
+//////////////////////////////////////////////////CIFRARI
+
+function  _binaryToASCII(str){
+    var ABC = {
+	  toAscii: function(bin) {
+		return bin.replace(/\s*[01]{8}\s*/g, function(bin) {
+		  return String.fromCharCode(parseInt(bin, 2))
+		})
+	  },
+	  toBinary: function(str, spaceSeparatedOctets) {
+		return str.replace(/[\s\S]/g, function(str) {
+		  str = ABC.zeroPad(str.charCodeAt().toString(2));
+		  return !1 == spaceSeparatedOctets ? str : str + " "
+		})
+	  },
+	  zeroPad: function(num) {
+		return "00000000".slice(String(num).length) + num
+	  }
+	};
+
+	return ABC.toAscii(str);
+
+}
+
+function _hexToChar(hex){
+        hex = hex.replace(/\s+/g, '');
+	bytes = [];
+	for(var i=0;i<hex.length-1;i+=2){
+		bytes.push(parseInt(hex.substr(i, 2), 16));
+	}
+        return String.fromCharCode.apply(String, bytes);
+}
+
+function _UTCToASCII(str){
+
+	function _utcTochar(a){
+		var out="null";
+		switch(a){
+			case "-11":
+				out="X";
+			break;
+
+			case "-10":
+				out="W";
+			break;
+
+			case "-9":
+				out="V";
+			break;
+
+			case "-8":
+				out="U";
+			break;
+
+			case "-7":
+				out="T";
+			break;
+
+			case "-6":
+				out="S";
+			break;
+
+			case "-5":
+				out="R";
+			break;
+
+			case "-4":
+				out="Q";
+			break;
+
+			case "-3":
+				out="P";
+			break;
+
+			case "-2":
+				out="O";
+			break;
+
+			case "-1":
+				out="N";
+			break;
+
+			case "+0":
+				out="Z";
+			break;
+
+			case "+1":
+				out="A";
+			break;
+
+			case "+2":
+				out="B";
+			break;
+
+			case "+3":
+				out="C";
+			break;
+
+			case "+4":
+				out="D";
+			break;
+
+			case "+5":
+				out="E";
+			break;
+
+			case "+6":
+				out="F";
+			break;
+
+			case "+7":
+				out="G";
+			break;
+
+			case "+8":
+				out="H";
+			break;
+
+			case "+9":
+				out="I";
+			break;
+
+			case "+10":
+				out="K";
+			break;
+
+			case "+11":
+				out="L";
+			break;
+
+			case "+12":
+				out="M";
+			break;
+	}
+		return out;
+	}
+
+	var utc = str.split(" ");
+	var buf="";
+	for(var k=0;k<utc.length;k++){
+		buf += _utcTochar(utc[k]);
+	}
+
+	return buf;
+}
+
+function _base64ToASCII(data) {
+
+  var b64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+  var o1, o2, o3, h1, h2, h3, h4, bits, i = 0,
+    ac = 0,
+    dec = '',
+    tmp_arr = [];
+
+  if (!data) {
+    return data;
+  }
+
+  data += '';
+
+  do { // unpack four hexets into three octets using index points in b64
+    h1 = b64.indexOf(data.charAt(i++));
+    h2 = b64.indexOf(data.charAt(i++));
+    h3 = b64.indexOf(data.charAt(i++));
+    h4 = b64.indexOf(data.charAt(i++));
+
+    bits = h1 << 18 | h2 << 12 | h3 << 6 | h4;
+
+    o1 = bits >> 16 & 0xff;
+    o2 = bits >> 8 & 0xff;
+    o3 = bits & 0xff;
+
+    if (h3 == 64) {
+      tmp_arr[ac++] = String.fromCharCode(o1);
+    } else if (h4 == 64) {
+      tmp_arr[ac++] = String.fromCharCode(o1, o2);
+    } else {
+      tmp_arr[ac++] = String.fromCharCode(o1, o2, o3);
+    }
+  } while (i < data.length);
+
+  dec = tmp_arr.join('');
+
+  return dec.replace(/\0+$/, '');
+}
+
+function _caesarToASCII(shift,str){
+	var parts = str.split( "" );
+	var output = [];
+        var num = parseInt(shift);
+
+	for( var i = 0; i < parts.length; ++i ) {
+		var ch = parts[i];
+		var chCode = ch.charCodeAt(ch);
+                if(chCode!=32){
+                    if(chCode>90) chCode-=32;
+                    var encCh = chCode + num;
+                    if(encCh>90) encCh-=26;
+                    if(encCh<65) encCh+=26;
+                    var letter = String.fromCharCode( encCh );
+                }
+                else{letter=" ";}
+                output.push( letter );
+	}
+
+	return output.join("");
+}
+
+function _indexToASCII(str){
+    var parts = str.split(" ");
+    var output = [];
+    for( var i = 0; i < parts.length; ++i ) {
+		var index = 64+parseInt(parts[i]);
+		var letter = String.fromCharCode( index );
+                output.push( letter );
+	}
+
+	return output.join("");
+}
+
+function _indexITAToASCII(str){
+    var parts = str.split(" ");
+    var output = [];
+    for( var i = 0; i < parts.length; ++i ) {
+		var index = 64+parseInt(parts[i]);
+                if(index>73) index+=2;
+                if(index>86) index+=3;
+		var letter = String.fromCharCode( index );
+                output.push( letter );
+	}
+
+	return output.join("");
+}
+
+function _binaryConverter(){
+        var text = document.getElementById("in").value;
+        document.getElementById("out").innerHTML = _binaryToASCII(text);
+
+}
+
+
+function _hexConverter(){
+        var text = document.getElementById("in").value;
+        document.getElementById("out").innerHTML = _hexToChar(text);
+
+}
+
+function _utcConverter(){
+        var text = document.getElementById("in").value;
+        document.getElementById("out").innerHTML = _UTCToASCII(text);
+
+}
+
+function _base64Converter(){
+        var text = document.getElementById("in").value;
+        document.getElementById("out").innerHTML = _base64ToASCII(text);
+
+}
+
+function _caesarConverter(){
+        var text = document.getElementById("in").value;
+        var shift = document.getElementById("shift").value;
+        document.getElementById("out").innerHTML = _caesarToASCII(shift,text);
+
+}
+
+function _indexConverter(){
+    var text = document.getElementById("in").value;
+        var a = document.getElementById("alfabeto");
+        var _s = a.options[a.selectedIndex].value;
+
+        if(_s=="ITA"){
+            document.getElementById("out").innerHTML = _indexITAToASCII(text);
+        }
+        else{
+            document.getElementById("out").innerHTML = _indexToASCII(text);
+        }
+
+}
+
+function _select(){
+    var e = document.getElementById("select");
+    var strUser = e.options[e.selectedIndex].value;
+
+    switch(strUser){
+        case "bin":
+            _binaryConverter();
+        break;
+
+        case "hex":
+            _hexConverter();
+        break;
+
+        case "utc":
+            _utcConverter();
+        break;
+
+        case "b64":
+            _base64Converter();
+        break;
+
+        case "cae":
+            _caesarConverter();
+        break
+
+        case "ind":
+            _indexConverter();
+        break
+
+    }
+}
+
+function _contaLettere(){
+
+
+}
+
+function _btnClickConverter(){
+    var param = document.getElementById("parmaarea");
+
+    param.innerHTML = '\
+                <div id="paramSub">\n\
+                <h3>Seleziona il cifrario, incolla il testo, e clicca "Converti"</h3>\n\
+                Cifrario: <select id="select" onchange="_cifrarioCesare();">\n\
+                    <option value="bin">Binario</option>\n\
+                    <option value="hex">Esadecimale</option>\n\
+                    <option value="ind">Indice</option>\n\
+                    <option value="utc">UTC</option>\n\
+                    <option value="b64">Base64</option>\n\
+                    <option value="cae">Cesare</option>\n\
+                </select><br><div id="cifrario" style="margin:0px;">\n\
+                <br><button type="button" onclick="_select()">Converti</button></div>\n\
+                </div>';
+
+}
+
+function _cifrarioCesare(){
+    var e = document.getElementById("select");
+    var strUser = e.options[e.selectedIndex].value;
+
+    if(strUser == "cae"){
+        var cifrario = document.getElementById("cifrario");
+        cifrario.innerHTML = '<br>Inserire scostamento <input type="number" id="shift" name="shift" min="0" max="26" /> <br><button type="button" onclick="_select()">Converti</button>';
+    }
+    else if(strUser == "ind"){
+        var cifrario = document.getElementById("cifrario");
+        cifrario.innerHTML = '<br>Seleziona alfabeto <select id="alfabeto">\n\
+                    <option value="ITA">Italiano</option>\n\
+                    <option value="ENG">Inglese</option>\n\
+                    </select>\n\
+                    <br><button type="button" onclick="_select()">Converti</button>';
+    }
+    else{
+        var cifrario = document.getElementById("cifrario");
+        cifrario.innerHTML = '<br><button type="button" onclick="_select()">Converti</button>';
+    }
+
+}
+
+//////////////////////////////////////////////////ANALISI TESTO
+
+function _textAnalyis(){
+    var param = document.getElementById("parmaarea");
+
+    param.innerHTML =  '\
+                <div id="paramSub">\n\
+                <b>Seleziona l\'operazione da effettuare e clicca "Esegui", incolla il testo, e clicca "Converti"</b><br><br>\n\
+                Operazione: <select id="select" onchange="_textChange();">\n\
+                    <option value="word">Conta Parole</option>\n\
+                    <option value="letc">Conta Lettere</option>\n\
+                    <option value="lett">Conta Ripetizione Lettere</option>\n\
+                </select><br><div id="cifrario" style="margin:0px;">\n\
+                <br><button type="button" onclick="_esegui()">Esegui</button></div>\n\
+                </div>';
+
+}
+
+
+
+function _textChange(){
+    var e = document.getElementById("select");
+    var strUser = e.options[e.selectedIndex].value;
+    if(strUser == "lett"){
+        var cifrario = document.getElementById("cifrario");
+        cifrario.innerHTML = '<br>Inserire lettera da conteggiare <input type="text" id="lettera" name="lettera" maxlength="1" size="1"/> <br><button type="button" onclick="_esegui()">Esegui</button></div>';
+        e.options[e.selectedIndex].value = "lett";
+    }
+    else{
+        var cifrario = document.getElementById("cifrario");
+        cifrario.innerHTML = '<br><button type="button" onclick="_esegui()">Esegui</button>';
+    }
+
+
+}
+
+function _esegui(){
+    var e = document.getElementById("select");
+    var strUser = e.options[e.selectedIndex].value;
+
+    switch(strUser){
+        case "word":
+            _countWords();
+        break;
+
+        case "lett":
+            _countLetters();
+        break;
+
+        case "letc":
+            _countaLettere();
+        break;
+    }
+
+}
+
+
+function _countWords(){
+    var text = document.getElementById("in").value;
+    text = text.replace(/(^\s*)|(\s*$)/gi,"");//exclude  start and end white-space
+    text = text.replace(/[ ]{2,}/gi," ");//2 or more space to 1
+    text = text.replace(/\n /,"\n"); // exclude newline with a start spacing
+
+    if(text){
+    var words = text.split(" ");
+    if(words.length==1){
+        document.getElementById("out").innerHTML = "Nel testo è presente " +words.length +" parola";
+    }
+    else{
+        document.getElementById("out").innerHTML = "Nel testo sono presenti " +words.length +" parole";
+    }
+    }
+    else{
+        document.getElementById("out").innerHTML = "Nessusa parola individuata..arr!";
+    }
+
+}
+
+
+function _countLetters(){
+    var text = document.getElementById("in").value;
+    var arr = text.split("");
+    var counter=0;
+    var letter = document.getElementById("lettera").value.toLowerCase();
+    for(var i=0;i<arr.length;++i){
+        if(arr[i].toLowerCase()==letter) counter++;
+    }
+    if(counter==1){
+        document.getElementById("out").innerHTML = "La lettera \"" + letter + "\" è presente " +counter+" volta";
+    }
+    else if(counter==0){
+        document.getElementById("out").innerHTML = "La lettera \"" + letter + "\" non è presente nel testo";
+    }
+    else{
+        document.getElementById("out").innerHTML = "La lettera \"" + letter + "\" è presente " +counter+" volte";
+    }
+}
+
+function _countaLettere(){
+    var text = document.getElementById("in").value;
+    text = text.replace(/[^a-zA-Z ]/g,"");
+    text = text.replace(/\s+/g,"");
+    var arr = text.split("");
+    var counter=arr.length;
+    if(counter==1){
+        document.getElementById("out").innerHTML = "Ho contato " +counter+" lettera";
+    }
+    else if(counter==0){
+        document.getElementById("out").innerHTML = "Non ci sono lettere nel testo";
+    }
+    else{
+        document.getElementById("out").innerHTML = "Ho contato " +counter+" lettere";
+    }
+}
+
+
+
+
+//////////////////////////////////////////////////ANAGRAMMATORE
+
+function _anagrams2(){
+    var param = document.getElementById("parmaarea");
+
+    param.innerHTML = "<div id='cifrario' style='margin:10px;'><button type='button' onclick='_anagramma()'>Anagramma</button></div>";
+
+
+}
+
+function _anagramma(){
+    if($('#in').val()!=''){
+            $.post("php/anagramma2.php", { stringa: $('#in').val() })
+            .done(function( data ){
+                $('#out').html('');
+                $.each(data,function(key,val){
+                    $('#out')
+                        .append(val+'<br />');
+                });
+        });
+    }
+    else{
+        alert('Inserisci una stringa da anagrammare');
+    }
+
+}
